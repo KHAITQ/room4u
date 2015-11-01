@@ -130,7 +130,7 @@ public class SendMailController extends Authenticator {
 //
 //    }
     public void sendMailSupport(String emailAddress, String subject, String content) {
-        if (content.trim().equals("") || name.trim().equals("") || email.trim().equals("")) {
+        if (content.trim().equals("") || subject.trim().equals("") || emailAddress.trim().equals("")) {
             sendMailResult = "false";
         } else {
             final String username = "room4u.FAT2.HCM@gmail.com";
@@ -161,7 +161,7 @@ public class SendMailController extends Authenticator {
 //                message.setSubject("Need support form customer: " + name);
                 message.setSubject(subject);
 //                message.setText(content + "\r\nEmail reply: " + email);
-                message.setText(content + "\r\nEmail reply: " + email);
+                message.setText(content + "\r\nEmail reply: " + username);
                 Transport.send(message);
                 sendMailResult = "success";
             } catch (MessagingException e) {

@@ -264,11 +264,16 @@ public class CustomerController {
     public List<Customer> getCustList() {
         return this.customerFacade.findAll();
     }
-
+    
     public void resetPassword(String email) {
-        SendMailController smc = new SendMailController();
-        smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
-//        Customer resetCust = customerFacade.find(uid)
+        List<Customer> lc = customerFacade.findEmail(email);
+        if(lc != null && lc.size() > 0){
+            Customer resetCust = lc.get(0);
+            resetCust.setPassword("ROOM4U");
+            customerFacade.updatePassword(resetCust.getCustId(), resetCust.getPassword());
+            SendMailController smc = new SendMailController();
+            smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
+        }
     }
 
     public String add() {
